@@ -43,7 +43,6 @@
                         else
                         {
                             // image file directory
-                            $target = "images/".basename($image);
 
                             $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
                             pg_query($conn,$sql);
