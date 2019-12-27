@@ -18,7 +18,7 @@
             {
                 $name = $_POST["proname"];
                 $price = $_POST["price"];
-                $descrip = $_POST["descrip"];
+                $descript = $_POST["descript"];
                 $img = $_FILES["images"];
                 if ($name == ""||$price == ""|| $descrip == "") 
                     {
@@ -45,7 +45,7 @@
                             // image file directory
                             $target = "images/".basename($image);
 
-                            $sql = "INSERT INTO product(proname, price, descrip, img) VALUES ('$name','$price','$descrip', '$img')";
+                            $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
                             pg_query($conn,$sql);
 
                              if (move_uploaded_file($_FILES['images']['tmp_name'], $target)) {
@@ -67,7 +67,7 @@
         <form action="add.php" method="POST" enctype="multipart/form-data">
             <input class="input-information" type="text" width="300" height="100" name="proname" placeholder="Name"> <br>
             <input class="input-information" type="text" width="300" height="100" name="price" placeholder="Price"> <br>
-            <input class="input-information" type="text" width="300" height="100" name="descrip" placeholder="Description"> <br>
+            <input class="input-information" type="text" width="300" height="100" name="descript" placeholder="Description"> <br>
 
             <div>Select images: <input type="file" name="file"></div><br>
             <button type="submit" value="Add" name="submit">Add</button>
