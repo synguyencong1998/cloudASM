@@ -48,10 +48,15 @@
                             $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
                             pg_query($conn,$sql);
 
-                             if (move_uploaded_file($_FILES['images']['tmp_name'], $target)) {
-                                $msg = "Image uploaded successfully";
-                            }else{
-                                $msg = "Failed to upload image";
+                            $uploads_dir = '/images';
+                            foreach ($_FILES["images"]["error"] as $key => $error) {
+                                if ($error == UPLOAD_ERR_OK) {
+                                    $tmp_name = $_FILES["images"]["tmp_name"][$key];
+                                    // basename() may prevent filesystem traversal attacks;
+                                    // further validation/sanitation of the filename may be appropriate
+                                    $name = basename($_FILES["images"]["name"][$key]);
+                                    move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                                }
                             }
 
                             ?> 
