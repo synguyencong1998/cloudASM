@@ -49,14 +49,15 @@ if(isset($_POST["aduser"]) && isset($_POST["adpass"]))
             require("connect.php");
             $sql = "SELECT * FROM product";
             $query = pg_query($conn, $sql);
-            for(int i = 0; i < $query.length; i++) {
+            $num_rows = mysql_num_rows($result);
+            for($i; $i < $num_rows; $i++) {
             ?>
                 <tr>
-                    <td class="info"><?php echo $row[i]['productid']?></td> 
-                    <td class="info"><?php echo $row[i]['proname']?></td> 
-                    <td class="info"><?php echo $row[i]['price']?></td> 
-                    <td class="info"><?php echo $row[i]['descrip']?></td> 
-                    <td class="info"><?php echo $row[i]['address']?></td> 
+                    <td class="info"><?php echo $row[$i]['productid']?></td> 
+                    <td class="info"><?php echo $row[$i]['proname']?></td> 
+                    <td class="info"><?php echo $row[$i]['price']?></td> 
+                    <td class="info"><?php echo $row[$i]['descrip']?></td> 
+                    <td class="info"><?php echo $row[$i]['address']?></td> 
                     <td class="info">
                         <form action='/delete.php' method="POST" onsubmit="return confirmDelete();">
                             <input type='hidden' name='productid' value='<?php echo $row['productid']?>'>
