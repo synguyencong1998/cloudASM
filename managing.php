@@ -57,7 +57,7 @@ if(isset($_POST["aduser"]) && isset($_POST["adpass"]))
                     <td class="info"><?php echo $row['proname']?></td> 
                     <td class="info"><?php echo $row['price']?></td> 
                     <td class="info"><?php echo $row['descrip']?></td> 
-                    <td class="info"><?php echo $row['address']?></td> 
+                    <td class="info"><?php echo $row['img']?></td> 
                     <td class="info">
                         <form action='/delete.php' method="POST" onsubmit="return confirmDelete();">
                             <input type='hidden' name='productid' value='<?php echo $row['productid']?>'>
