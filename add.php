@@ -20,7 +20,7 @@
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
                 $tmp_name = $_FILES["images"]["tmp_name"];
-                $name = basename($_FILES["images"]["name"]);
+                $name = $_FILES["images"]["name"];
                 if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
@@ -48,13 +48,13 @@
                             $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
                             pg_query($conn,$sql);
 
-                            $uploads_dir = '/images';
+                            $uploads_dir = './images';
 
                             
                             // basename() may prevent filesystem traversal attacks;
                             // further validation/sanitation of the filename may be appropriate
                        
-                    //         move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                            move_uploaded_file($tmp_name, "$uploads_dir/$name");
 
                             ?> 
                                 <script>
