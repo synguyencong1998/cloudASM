@@ -23,8 +23,8 @@ if (isset($_POST['update'])) {
 		<?php
 		} else {
 			if(isset($_FILES['images'])) {
-                $img = 'images/' . $_FILES['images']['name'];
-                move_uploaded_file($_FILES['images']['tmp_name'], $img);
+                $img = './images/' . $_FILES['images']['name'];
+                move_uploaded_file($_FILES['images']['tmp_name'], 'images/' . $_FILES['images']['name']);
             }
 			$sql = "UPDATE product SET proname='$name', price='$price', descript='$descript', img='$img' WHERE productid='$id'";
 			$run = pg_query($conn, $sql);
