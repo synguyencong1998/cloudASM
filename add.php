@@ -19,7 +19,6 @@
                 $name = $_POST["proname"];
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
-                $img = $_FILES["images"];
                 if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
@@ -44,8 +43,7 @@
                         {
                             // image file directory
 
-                            $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
-                            pg_query($conn,$sql);
+                            
 
                             $uploads_dir = '/images';
                             foreach ($_FILES["images"]["error"] as $key => $error) {
@@ -57,6 +55,11 @@
                                     move_uploaded_file($tmp_name, "$uploads_dir/$name");
                                 }
                             }
+
+                            $img= "$uploads_dir/$name";
+
+                            $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
+                            pg_query($conn,$sql);
 
                             ?> 
                                 <script>
