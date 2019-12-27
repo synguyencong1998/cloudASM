@@ -44,7 +44,7 @@
                             // image file directory
                             if(isset($_FILES['images'])) {
                                 $img = './images/' . $_FILES['images']['name'];
-                                move_uploaded_file($_FILES['images']['tmp_name'], 'images/' . $_FILES['images']['name']);
+                                move_uploaded_file($_FILES['images']['tmp_name'], './images/' . $_FILES['images']['name']);
                             }
                             
                             $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
