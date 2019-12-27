@@ -19,7 +19,7 @@
                 $name = $_POST["proname"];
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
-                $img = $_FILES["images"]["tmp_name"]
+                $img = $_FILES["images"];
                 if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
@@ -43,21 +43,22 @@
                         else
                         {
                             // image file directory
+                            $target = "images/".basename($image);
 
                             $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
                             pg_query($conn,$sql);
 
-
-                            $path = "./images/".$_FILES['myFile']['name'];
-                            if(move_uploaded_file($img, $path)){
-                                echo "Tải tập tin thành công";
-                            }else{
-                                echo "Tải tập tin thất bại";
+                            $uploads_dir = '/images';
+                            foreach ($_FILES["images"]["error"] as $key => $error) {
+                                if ($error == UPLOAD_ERR_OK) {
+                                    $tmp_name = $_FILES["images"]["tmp_name"][$key];
+                                    // basename() may prevent filesystem traversal attacks;
+                                    // further validation/sanitation of the filename may be appropriate
+                                    $name = basename($_FILES["images"]["name"][$key]);
+                                    move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                                }
                             }
-                            
-                            // basename() may prevent filesystem traversal attacks;
-                            // further validation/sanitation of the filename may be appropriate
-                       
+
                             ?> 
                                 <script>
                                     alert("Added successful!");
@@ -73,7 +74,7 @@
             <input class="input-information" type="text" width="300" height="100" name="price" placeholder="Price"> <br>
             <input class="input-information" type="text" width="300" height="100" name="descript" placeholder="Description"> <br>
 
-            <div>Select images: <input type="file" name="file"></div><br>
+            <div>Select images: <input type="file" name="images"></div><br>
             <button type="submit" value="Add" name="submit">Add</button>
         </form>
         
