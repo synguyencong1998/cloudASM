@@ -19,8 +19,7 @@
                 $name = $_POST["proname"];
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
-                $img = $_FILES["images"]
-                $images = $_FILES["images"]["name"];
+                $img = $_FILES["images"]["tmp_name"]
                 if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
@@ -48,14 +47,17 @@
                             $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
                             pg_query($conn,$sql);
 
-                            $uploads_dir = './images';
 
+                            $path = "./images/".$_FILES['myFile']['name'];
+                            if(move_uploaded_file($img, $path)){
+                                echo "Tải tập tin thành công";
+                            }else{
+                                echo "Tải tập tin thất bại";
+                            }
                             
                             // basename() may prevent filesystem traversal attacks;
                             // further validation/sanitation of the filename may be appropriate
                        
-                            move_uploaded_file($img, "$uploads_dir/$images");
-
                             ?> 
                                 <script>
                                     alert("Added successful!");
