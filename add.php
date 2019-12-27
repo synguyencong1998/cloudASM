@@ -20,7 +20,7 @@
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
                 $img = $_FILES["images"];
-                if ($name == ""||$price == ""|| $descrip == "") 
+                if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
                         <script>
