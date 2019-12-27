@@ -20,7 +20,7 @@
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
                 $tmp_name = $_FILES["images"]["tmp_name"];
-                $name = $_FILES["images"]["name"];
+                $nameImg = $_FILES["images"]["name"];
                 if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
@@ -54,7 +54,7 @@
                             // basename() may prevent filesystem traversal attacks;
                             // further validation/sanitation of the filename may be appropriate
                        
-                            move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                            move_uploaded_file($tmp_name, "$uploads_dir/$nameImg");
 
                             ?> 
                                 <script>
