@@ -19,44 +19,72 @@
                 $name = $_POST["proname"];
                 $price = $_POST["price"];
                 $descrip = $_POST["descrip"];
-                if ($name == ""||$price == ""|| $descrip == "") 
-                    {
-                        ?>
-                        <script>
-                            alert("Product information should not be blank!!");
-                        </script>
-                        <?php
+                $img = $_FILES["images"];
+                if($_FILES["images"]["name"]!=NULL) {
+                    if($_FILES["images"]["type"]=="image/jpg" 
+                        || $_FILES["images"]["type"]=="image/png" 
+                        || $_FILES["images"]["type"]=="image/gif") {
+                            if ($name == ""||$price == ""|| $descrip == "") 
+                                {
+                                    ?>
+                                    <script>
+                                        alert("Product information should not be blank!!");
+                                    </script>
+                                    <?php
+                                }
+                            else
+                                {
+                                    $sql = "select * from product where proname='$name'";
+                                    $query = pg_query($conn, $sql);
+                                    if(pg_num_rows($query)>0)
+                                    {
+                                    ?> 
+                                        <script>
+                                            alert("The product is available!!");
+                                        </script>
+                                    <?php
+                                    }
+                                    else
+                                    {
+                                        $path = ""; // file luu vào thu muc chua file upload
+                                        $image_text = pg_real_escape_string($db, $_POST['image_text']);
+
+                                        // image file directory
+                                        $target = "images/".basename($image);
+
+                                        $sql = "INSERT INTO product(proname, price, descrip, img) VALUES ('$name','$price','$descrip', '$img')";
+                                        pg_query($conn,$sql);
+
+                                         if (move_uploaded_file($_FILES['images']['tmp_name'], $target)) {
+                                            $msg = "Image uploaded successfully";
+                                        }else{
+                                            $msg = "Failed to upload image";
+                                        }
+
+                                        ?> 
+                                            <script>
+                                                alert("Added successful!");
+                                                window.location.href = "/managing.php";
+                                            </script>
+                                        <?php
+                                    }
+                                }
+                    } else {
+                        echo "Not images type!"
                     }
-                else
-                    {
-                        $sql = "select * from product where proname='$name'";
-                        $query = pg_query($conn, $sql);
-                        if(pg_num_rows($query)>0)
-                        {
-                        ?> 
-                            <script>
-                                alert("The product is available!!");
-                            </script>
-                        <?php
-                        }
-                        else
-                        {
-                            $sql = "INSERT INTO product(proname, price, descrip) VALUES ('$name','$price','$descrip')";
-                            pg_query($conn,$sql);
-                            ?> 
-                                <script>
-                                    alert("Added successful!");
-                                    window.location.href = "/managing.php";
-                                </script>
-                            <?php
-                        }
-                    }
+                } else {
+                    echo "Input file"
+                }
+
+                
             }
 			?>
-        <form action="add.php" method="POST">
+        <form action="add.php" method="POST" enctype="multipart/form-data">
             <input class="input-information" type="text" width="300" height="100" name="proname" placeholder="Name"> <br>
             <input class="input-information" type="text" width="300" height="100" name="price" placeholder="Price"> <br>
             <input class="input-information" type="text" width="300" height="100" name="descrip" placeholder="Description"> <br>
+
+            <div>Select images: <input type="file" name="file"></div><br>
             <button type="submit" value="Add" name="submit">Add</button>
         </form>
         
