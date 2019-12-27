@@ -19,7 +19,7 @@
                 $name = $_POST["proname"];
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
-                $img = $_FILES["images"];
+                $tmp_name = $_FILES["images"]["tmp_name"];
                 if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
@@ -50,7 +50,7 @@
 
                             $uploads_dir = '/images';
 
-                            $tmp_name = $_FILES["images"]["tmp_name"];
+                            
                             // basename() may prevent filesystem traversal attacks;
                             // further validation/sanitation of the filename may be appropriate
                             $name = basename($_FILES["images"]["name"]);
