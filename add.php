@@ -19,7 +19,6 @@
                 $name = $_POST["proname"];
                 $price = $_POST["price"];
                 $descript = $_POST["descript"];
-                $img = $_FILES["images"];
                 if ($name == ""||$price == ""|| $descript == "") 
                     {
                         ?>
