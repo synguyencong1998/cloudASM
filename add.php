@@ -47,13 +47,13 @@
                             $sql = "INSERT INTO product(proname, price, descript, img) VALUES ('$name','$price','$descript', '$img')";
                             pg_query($conn,$sql);
 
-                            $uploads_dir = '/images';
+                    //         $uploads_dir = '/images';
 
-                            
-                            // basename() may prevent filesystem traversal attacks;
-                            // further validation/sanitation of the filename may be appropriate
-                            $name = basename($_FILES["images"]["name"]);
-                            move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                    //         
+                    //         // basename() may prevent filesystem traversal attacks;
+                    //         // further validation/sanitation of the filename may be appropriate
+                    //         $name = basename($_FILES["images"]["name"]);
+                    //         move_uploaded_file($tmp_name, "$uploads_dir/$name");
 
                             ?> 
                                 <script>
