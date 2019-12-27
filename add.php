@@ -46,9 +46,6 @@
                                     }
                                     else
                                     {
-                                        $path = ""; // file luu vào thu muc chua file upload
-                                        $image_text = pg_real_escape_string($db, $_POST['image_text']);
-
                                         // image file directory
                                         $target = "images/".basename($image);
 
