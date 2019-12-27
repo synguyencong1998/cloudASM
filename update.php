@@ -5,7 +5,7 @@ $id = $_POST['productid'];
 if (isset($_POST['update'])) {
 	$name = $_POST["proname"];
     $price = $_POST["price"];
-	$descript = $_POST["descrip"];
+	$descript = $_POST["descript"];
 	if ($name == ""||$price == ""|| $descript == "") {
     ?>
 		<script>
