@@ -5,8 +5,8 @@ $id = $_POST['productid'];
 if (isset($_POST['update'])) {
 	$name = $_POST["proname"];
     $price = $_POST["price"];
-	$descrip = $_POST["descrip"];
-	if ($name == ""||$price == ""|| $descrip == "") {
+	$descript = $_POST["descrip"];
+	if ($name == ""||$price == ""|| $descript == "") {
     ?>
 		<script>
 			alert("Product information should not be blank!!");
@@ -22,7 +22,11 @@ if (isset($_POST['update'])) {
 			</script>
 		<?php
 		} else {
-			$sql = "UPDATE product SET proname='$name', price='$price', descrip='$descrip' WHERE productid='$id'";
+			if(isset($_FILES['images'])) {
+                $img = 'images/' . $_FILES['images']['name'];
+                move_uploaded_file($_FILES['images']['tmp_name'], $img);
+            }
+			$sql = "UPDATE product SET proname='$name', price='$price', descript='$descript', img='$img' WHERE productid='$id'";
 			$run = pg_query($conn, $sql);
 			if ($run) { ?>
 			<script type="text/javascript">
@@ -55,7 +59,7 @@ if (isset($_POST['update'])) {
 <body>
     <div class="content">
         <h1>Update Information</h1>
-        <form action="/update.php" method="POST">
+        <form action="/update.php" method="POST" enctype="multipart/form-data">
 			<?php
 			$qry = "SELECT * FROM product WHERE productid = '$id'";
 			$result = pg_query($conn, $qry);
@@ -64,7 +68,8 @@ if (isset($_POST['update'])) {
 			<input type="hidden" name="productid" value="<?= $row[0] ?>">
 			<input class="input-information" type="text" name="proname" value="<?= $row[1] ?>">
 			<input class="input-information" type="text" name="price" value="<?= $row[2] ?>">
-			<input class="input-information" type="text" name="descrip" value="<?= $row[3] ?>">
+			<input class="input-information" type="text" name="descript" value="<?= $row[3] ?>">
+			<input class="input-information" type="file" name="images" value="<?= $row[4]?>">
 			<input class="update-ip" type="submit" name="update" value="Update">
 		</form>
         
