@@ -25,3 +25,4 @@
 </body>
 
 </html>
+    <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
